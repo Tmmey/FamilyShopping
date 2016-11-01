@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Shopping" Class="ShoppingDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=Shopping;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ShoppingConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ShoppingDate" Member="ShoppingDates">
+    <Type Name="ShoppingDate">
+      <Column Name="OID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="ShoppingDate_ShoppingItem" Member="ShoppingItems" ThisKey="OID" OtherKey="ShoppingDateOID" Type="ShoppingItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingItem" Member="ShoppingItems">
+    <Type Name="ShoppingItem">
+      <Column Name="OID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemDescription" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaxPrice" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShoppingDateOID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ShoppingPlaceOID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ShoppingUnitAmountOID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="ShoppingDate_ShoppingItem" Member="ShoppingDate" ThisKey="ShoppingDateOID" OtherKey="OID" Type="ShoppingDate" IsForeignKey="true" />
+      <Association Name="ShoppingPlace_ShoppingItem" Member="ShoppingPlace" ThisKey="ShoppingPlaceOID" OtherKey="OID" Type="ShoppingPlace" IsForeignKey="true" />
+      <Association Name="ShoppingUnitAmount_ShoppingItem" Member="ShoppingUnitAmount" ThisKey="ShoppingUnitAmountOID" OtherKey="OID" Type="ShoppingUnitAmount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingPlace" Member="ShoppingPlaces">
+    <Type Name="ShoppingPlace">
+      <Column Name="OID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="ShoppingPlace_ShoppingItem" Member="ShoppingItems" ThisKey="OID" OtherKey="ShoppingPlaceOID" Type="ShoppingItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingUnitAmount" Member="ShoppingUnitAmounts">
+    <Type Name="ShoppingUnitAmount">
+      <Column Name="OID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="ShoppingUnitAmount_ShoppingItem" Member="ShoppingItems" ThisKey="OID" OtherKey="ShoppingUnitAmountOID" Type="ShoppingItem" />
+    </Type>
+  </Table>
+</Database>
